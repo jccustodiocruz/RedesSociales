@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/RedesSocialesJPA/src/Main/Pruebas.java</file>
-            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/RedesSocialesJPA/src/Entidades/Registro.java</file>
-            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/RedesSocialesJPA/src/Entidades/Usuario.java</file>
-            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/RedesSocialesJPA/src/Entidades/RegistroPK.java</file>
-            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/RedesSocialesJPA/src/Entidades/Plataforma.java</file>
+            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/RedesSociales/RedesSocialesJPA/src/Managers/RegistroJpaController.java</file>
+            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/RedesSociales/RedesSocialesJPA/src/Managers/PlataformaJpaController.java</file>
+            <file>file:/C:/Users/juanc/Documents/Escuela/Cuarto%20Semestre/Bases%20de%20datos%20avanzados/Projectos/RedesSociales/RedesSocialesJPA/src/Managers/UsuarioJpaController.java</file>
         </group>
     </open-files>
 </project-private>

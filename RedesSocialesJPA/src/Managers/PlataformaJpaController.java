@@ -27,7 +27,7 @@ public class PlataformaJpaController implements Serializable {
         return manager.createEntityManager();
     }
 
-    public void create(Plataforma plataforma) throws PreexistingEntityException, Exception {
+    public void add(Plataforma plataforma) throws PreexistingEntityException, Exception {
         if (plataforma.getRegistroList() == null) {
             plataforma.setRegistroList(new ArrayList<Registro>());
         }
@@ -53,7 +53,7 @@ public class PlataformaJpaController implements Serializable {
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findPlataforma(plataforma.getId()) != null) {
+            if (find(plataforma.getId()) != null) {
                 throw new PreexistingEntityException("Plataforma " + plataforma + " already exists.", ex);
             }
             throw ex;
@@ -64,7 +64,7 @@ public class PlataformaJpaController implements Serializable {
         }
     }
 
-    public void edit(Plataforma plataforma) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void update(Plataforma plataforma) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -108,7 +108,7 @@ public class PlataformaJpaController implements Serializable {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
                 Integer id = plataforma.getId();
-                if (findPlataforma(id) == null) {
+                if (find(id) == null) {
                     throw new NonexistentEntityException("The plataforma with id " + id + " no longer exists.");
                 }
             }
@@ -120,7 +120,7 @@ public class PlataformaJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
+    public void delete(Integer id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -152,15 +152,15 @@ public class PlataformaJpaController implements Serializable {
         }
     }
 
-    public List<Plataforma> findPlataformaEntities() {
-        return findPlataformaEntities(true, -1, -1);
+    public List<Plataforma> getAll() {
+        return getAll(true, -1, -1);
     }
 
-    public List<Plataforma> findPlataformaEntities(int maxResults, int firstResult) {
-        return findPlataformaEntities(false, maxResults, firstResult);
+    public List<Plataforma> getAll(int maxResults, int firstResult) {
+        return getAll(false, maxResults, firstResult);
     }
 
-    private List<Plataforma> findPlataformaEntities(boolean all, int maxResults, int firstResult) {
+    private List<Plataforma> getAll(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
@@ -176,7 +176,7 @@ public class PlataformaJpaController implements Serializable {
         }
     }
 
-    public Plataforma findPlataforma(Integer id) {
+    public Plataforma find(Integer id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Plataforma.class, id);
@@ -185,7 +185,7 @@ public class PlataformaJpaController implements Serializable {
         }
     }
 
-    public int getPlataformaCount() {
+    public int getCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();

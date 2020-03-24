@@ -27,7 +27,7 @@ public class UsuarioJpaController implements Serializable {
         return manager.createEntityManager();
     }
 
-    public void create(Usuario usuario) throws PreexistingEntityException, Exception {
+    public void add(Usuario usuario) throws PreexistingEntityException, Exception {
         if (usuario.getRegistroList() == null) {
             usuario.setRegistroList(new ArrayList<Registro>());
         }
@@ -53,7 +53,7 @@ public class UsuarioJpaController implements Serializable {
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findUsuario(usuario.getId()) != null) {
+            if (find(usuario.getId()) != null) {
                 throw new PreexistingEntityException("Usuario " + usuario + " already exists.", ex);
             }
             throw ex;
@@ -64,7 +64,7 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public void edit(Usuario usuario) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void update(Usuario usuario) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -108,7 +108,7 @@ public class UsuarioJpaController implements Serializable {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
                 Integer id = usuario.getId();
-                if (findUsuario(id) == null) {
+                if (find(id) == null) {
                     throw new NonexistentEntityException("The usuario with id " + id + " no longer exists.");
                 }
             }
@@ -120,7 +120,7 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public void destroy(Integer id) throws IllegalOrphanException, NonexistentEntityException {
+    public void delete(Integer id) throws IllegalOrphanException, NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -152,15 +152,15 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public List<Usuario> findUsuarioEntities() {
-        return findUsuarioEntities(true, -1, -1);
+    public List<Usuario> getAll() {
+        return getAll(true, -1, -1);
     }
 
-    public List<Usuario> findUsuarioEntities(int maxResults, int firstResult) {
-        return findUsuarioEntities(false, maxResults, firstResult);
+    public List<Usuario> getAll(int maxResults, int firstResult) {
+        return getAll(false, maxResults, firstResult);
     }
 
-    private List<Usuario> findUsuarioEntities(boolean all, int maxResults, int firstResult) {
+    private List<Usuario> getAll(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
@@ -176,7 +176,7 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public Usuario findUsuario(Integer id) {
+    public Usuario find(Integer id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Usuario.class, id);
@@ -185,7 +185,7 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public int getUsuarioCount() {
+    public int getCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();

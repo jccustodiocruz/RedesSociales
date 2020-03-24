@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -46,6 +47,20 @@ public class Plataforma implements Serializable {
     private Date fechaInicio;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "plataforma")
     private List<Registro> registroList;
+    @ManyToMany(mappedBy = "plataforma")
+    private List<Usuario> usuarios;
+    
+    public List<Usuario> getUsuarios(){
+        return usuarios;
+    }
+    
+    public void setUsuarios(List<Usuario> usuarios){
+        this.usuarios = usuarios;
+    }
+    
+    public void addUsuario(Usuario u){
+        usuarios.add(u);
+    }
 
     public Plataforma() {
     }

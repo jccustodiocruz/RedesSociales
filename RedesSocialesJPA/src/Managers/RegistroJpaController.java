@@ -27,7 +27,7 @@ public class RegistroJpaController implements Serializable {
         return manager.createEntityManager();
     }
 
-    public void create(Registro registro) throws PreexistingEntityException, Exception {
+    public void add(Registro registro) throws PreexistingEntityException, Exception {
         if (registro.getRegistroPK() == null) {
             registro.setRegistroPK(new RegistroPK());
         }
@@ -58,7 +58,7 @@ public class RegistroJpaController implements Serializable {
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
-            if (findRegistro(registro.getRegistroPK()) != null) {
+            if (find(registro.getRegistroPK()) != null) {
                 throw new PreexistingEntityException("Registro " + registro + " already exists.", ex);
             }
             throw ex;
@@ -69,7 +69,7 @@ public class RegistroJpaController implements Serializable {
         }
     }
 
-    public void edit(Registro registro) throws NonexistentEntityException, Exception {
+    public void update(Registro registro) throws NonexistentEntityException, Exception {
         registro.getRegistroPK().setIdPlataforma(registro.getPlataforma().getId());
         registro.getRegistroPK().setIdUsuario(registro.getUsuario().getId());
         EntityManager em = null;
@@ -111,7 +111,7 @@ public class RegistroJpaController implements Serializable {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
                 RegistroPK id = registro.getRegistroPK();
-                if (findRegistro(id) == null) {
+                if (find(id) == null) {
                     throw new NonexistentEntityException("The registro with id " + id + " no longer exists.");
                 }
             }
@@ -123,7 +123,7 @@ public class RegistroJpaController implements Serializable {
         }
     }
 
-    public void destroy(RegistroPK id) throws NonexistentEntityException {
+    public void delete(RegistroPK id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -154,15 +154,15 @@ public class RegistroJpaController implements Serializable {
         }
     }
 
-    public List<Registro> findRegistroEntities() {
-        return findRegistroEntities(true, -1, -1);
+    public List<Registro> getAll() {
+        return getAll(true, -1, -1);
     }
 
-    public List<Registro> findRegistroEntities(int maxResults, int firstResult) {
-        return findRegistroEntities(false, maxResults, firstResult);
+    public List<Registro> getAll(int maxResults, int firstResult) {
+        return getAll(false, maxResults, firstResult);
     }
 
-    private List<Registro> findRegistroEntities(boolean all, int maxResults, int firstResult) {
+    private List<Registro> getAll(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
@@ -178,7 +178,7 @@ public class RegistroJpaController implements Serializable {
         }
     }
 
-    public Registro findRegistro(RegistroPK id) {
+    public Registro find(RegistroPK id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(Registro.class, id);
@@ -187,7 +187,7 @@ public class RegistroJpaController implements Serializable {
         }
     }
 
-    public int getRegistroCount() {
+    public int getCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();

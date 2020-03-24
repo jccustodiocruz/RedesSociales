@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -52,6 +53,20 @@ public class Usuario implements Serializable {
     private Integer edad;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Registro> registroList;
+    @ManyToMany(mappedBy = "usuario")
+    private List<Plataforma> plataformas;
+    
+    public List<Plataforma> getPlataformas(){
+        return plataformas;
+    }
+    
+    public void setPlataformas(List<Plataforma> plataformas){
+        this.plataformas = plataformas;
+    }
+    
+    public void addPlataforma(Plataforma p){
+        plataformas.add(p);
+    }
 
     public Usuario() {
     }
